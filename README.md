@@ -26,7 +26,7 @@ chmod +x install.sh
 ```
 4. Ejecutar el script
 ```bash
-./setup.sh
+./install.sh
 ```
 5. Luego de instalar debes cerrar la terminal para aplicar los cambios
 ## Software instalados
