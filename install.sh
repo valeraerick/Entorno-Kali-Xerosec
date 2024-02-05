@@ -22,28 +22,23 @@ function ctrl_c(){
 
 function banner(){
     echo "   __     ______   __"
-    sleep 0.5
     echo "  / /    / __   | / /"
-    sleep 0.5
     echo " / /____| | //| |/ /____"
-    sleep 0.5
     echo "|___   _) |// | |___   _)"
-    sleep 0.5
     echo "    | | |  /__| |   | |"
-    sleep 0.5
     echo "    |_|  \_____/    |_|"
-    sleep 0.5
     echo ".......................NotFound"
-    sleep 1
+    sleep 1.5
 }
 
 if [ "$user" == "root" ]; then
     banner
+    sleep 1.5
     echo -e "\n\n${redColour}[X] Error no debes ejecutarlo como root!\n${endColour}"
     exit 1
 else
     banner
-    
+    sleep 1.5
     echo -e "\n${blueColour}[*] Instalanddo Oh My Zsh y Powerlevel10k para el usuario:${endColour} ${purpleColour}$user${endColour}${blueColour}...\n${endColour}"
     sleep 2
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -90,19 +85,17 @@ else
     sudo ln -sfv ~/.p10k.zsh /root/.p10k.zsh
     echo -e "\n${greenColour}[+] Realizado\n${endColour}"
     sleep 1.5
+
+    echo -e "\n${blueColour}[*] Configurando entorno de escritotio...\n${endColour}"
+    sleep 1.5
+    # elimina la sombra debajo del panel
+    xfconf-query -c xfwm4 -p /general/show_dock_shadow -s false
+    # no mostar los iconos del escritorio
+    xfconf-query -c xfce4-desktop -p /desktop-icons/style -s 0
+    echo -e "\n${greenColour}[+] Realizado\n${endColour}"
+    sleep 1.5
     
-    while true; do
-        echo -en "\n${yellowColour}[?] Debes cerrar la terminal para aplicar los cambios quieres hacerlo ahora? ([y]/n) ${endColour}"
-        read -r
-        REPLY=${REPLY:-"y"}
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            echo -e "\n\n${greenColour}[+] Cerrando la terminal...\n${endColor}"
-            sleep 2
-            exit 0
-            elif [[ $REPLY =~ ^[Nn]$ ]]; then
-            exit 1
-        else
-            echo -e "\n${redColour}[!] Parametro invalido\n${endColour}"
-        fi
-    done
-fi
+    echo -en "\n${yellowColour}[!] Debes cerrar la terminal para aplicar los cambios ${endColour}"
+    sleep 2
+    exit 0
+        
