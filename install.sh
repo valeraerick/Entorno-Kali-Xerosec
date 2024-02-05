@@ -98,4 +98,6 @@ else
     echo -en "\n${yellowColour}[!] Debes cerrar la terminal para aplicar los cambios ${endColour}"
     sleep 2
     exit 0
+
+    fi
         
